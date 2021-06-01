@@ -1,0 +1,7 @@
+[package]
+name = "simd-in-wasm"
+version = "0.1.0"
+authors = ["Dengjianping <djptux@gmail.com>"]
+edition = "2018"
+
+[dependencies]
