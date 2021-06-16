@@ -1,10 +1,6 @@
 #![allow(non_upper_case_globals)]
 #![allow(unused_variables)]
 
-#![feature(wasm_simd)]
-#![feature(wasm_target_feature)]
-#![feature(target_feature_11)]
-
 use core::mem;
 use core::arch::wasm32::{self, v128};
 use std::time::Instant;
@@ -13,7 +9,7 @@ const N: usize = 100_000;
 
 fn main() {
     let now = Instant::now();
-    unsafe { with_simd(); }
+    with_simd();
     let t1 = now.elapsed().as_secs_f64();
     println!("simd enabled: {}s", t1);
 
@@ -43,7 +39,7 @@ fn with_simd() {
         // let _a: v128 = wasm32::i32x4(_c[0], _c[1], _c[2], _c[3]);
         let _b: v128 = unsafe { mem::transmute(_d) };
         // let _b: v128 = wasm32::i32x4(_d[0], _d[1], _d[2], _d[3]);
-        let _f = unsafe { wasm32::i32x4_add(_a, _b) };
+        let _f = wasm32::i32x4_add(_a, _b);
         let _e: [i32; 4] = unsafe { mem::transmute(_f) };
         // println!("added in wasm: {:?}", _e);
     }
